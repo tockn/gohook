@@ -55,7 +55,11 @@ const (
 	CharUndefined = 0xFFFF
 	WheelUp       = -1
 	WheelDown     = 1
+
+	anyKeyCode = 0
 )
+
+var AnyKeyCmd = []string{"any"}
 
 // Event Holds a system event
 //
@@ -118,6 +122,10 @@ func Register(when uint8, cmds []string, cb func(Event)) {
 	tmp := []uint16{}
 
 	for _, v := range cmds {
+		if v == AnyKeyCmd[0] {
+			tmp = append(tmp, anyKeyCode)
+			break
+		}
 		tmp = append(tmp, Keycode[v])
 	}
 
